@@ -1,1 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoFluxo - Contato</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-green-50 text-gray-800">
+
+  <!-- Header / Navbar -->
+  <header class="bg-green-700 text-white p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold">EcoFluxo</h1>
+      <nav>
+        <ul class="flex space-x-6">
+          <li><a href="index.html" class="hover:underline">Início</a></li>
+          <li><a href="sobre.html" class="hover:underline">Sobre</a></li>
+          <li><a href="objetivos.html" class="hover:underline">Objetivos</a></li>
+          <li><a href="metodologia.html" class="hover:underline">Metodologia</a></li>
+          <li><a href="resultados.html" class="hover:underline">Resultados</a></li>
+          <li><a href="educacao.html" class="hover:underline">Educação</a></li>
+          <li><a href="referencias.html" class="hover:underline">Referências</a></li>
+          <li><a href="contato.html" class="hover:underline font-semibold">Contato</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contato -->
+  <main class="container mx-auto px-6 py-12">
+    <h2 class="text-3xl font-extrabold text-green-700 mb-8 text-center">Entre em Contato</h2>
+
+    <p class="text-center mb-6 text-lg max-w-2xl mx-auto">
+      Preencha o formulário abaixo para cadastrar sua instituição no EcoFluxo ou enviar uma mensagem à nossa equipe.
+    </p>
+
+    <form action="#" method="post" class="bg-white p-8 rounded-lg shadow max-w-2xl mx-auto space-y-6">
+      <div>
+        <label class="block mb-2 font-semibold text-green-700">Nome da instituição:</label>
+        <input type="text" name="instituicao" class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-green-600" required>
+      </div>
+
+      <div>
+        <label class="block mb-2 font-semibold text-green-700">Tipo:</label>
+        <select name="tipo" class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-green-600">
+          <option>Escola</option>
+          <option>Horta Comunitária</option>
+          <option>ONG</option>
+          <option>Outro</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block mb-2 font-semibold text-green-700">Localização:</label>
+        <input type="text" name="localizacao" class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-green-600" placeholder="Cidade / Bairro" required>
+      </div>
+
+      <div>
+        <label class="block mb-2 font-semibold text-green-700">Mensagem:</label>
+        <textarea name="mensagem" rows="5" class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-green-600"></textarea>
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="bg-green-600 text-white px-6 py-3 rounded-lg shadow hover:bg-green-800 transition">
+          Enviar
+        </button>
+      </div>
+    </form>
+
+    <div class="text-center mt-10">
+      <p class="text-lg font-semibold">📧 Email: <a href="mailto:contato@ecofluxo.org" class="text-green-700 hover:underline">contato@ecofluxo.org</a></p>
+      <p class="mt-2">🌐 Redes sociais: 
+        <a href="#" class="text-green-700 hover:underline">Instagram</a> | 
+        <a href="#" class="text-green-700 hover:underline">Facebook</a>
+      </p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-green-700 text-white py-4 text-center mt-10">
+    <p>&copy; 2025 EcoFluxo. Todos os direitos reservados.</p>
+  </footer>
+
+</body>
+</html>
 
