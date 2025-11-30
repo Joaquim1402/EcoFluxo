@@ -6,15 +6,79 @@
   <title>EcoFluxo - Início</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Estilos adicionais para melhorar a responsividade */
+    .mobile-menu {
+      display: none;
+    }
+    
+    @media (max-width: 1024px) {
+      .desktop-nav {
+        display: none;
+      }
+      
+      .mobile-menu {
+        display: block;
+      }
+      
+      .mobile-menu-button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+      
+      .mobile-nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #047857;
+        z-index: 50;
+        padding: 1rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      
+      .mobile-nav ul {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      
+      .mobile-nav li a {
+        display: block;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .hero-buttons {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .hero-buttons a {
+        width: 100%;
+        text-align: center;
+      }
+      
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body class="bg-green-50 text-gray-800">
 
   <!-- Header / Navbar -->
-  <header class="bg-green-700 text-white p-4 shadow-md">
+  <header class="bg-green-700 text-white p-4 shadow-md relative">
     <div class="container mx-auto flex justify-between items-center">
       <h1 class="text-2xl font-bold">EcoFluxo</h1>
-      </a>
-      <nav>
+      
+      <!-- Menu Desktop -->
+      <nav class="desktop-nav">
         <ul class="flex space-x-6">
           <li><a href="index.html" class="hover:underline font-semibold">Início</a></li>
           <li><a href="sobre.html" class="hover:underline">Sobre</a></li>
@@ -25,9 +89,28 @@
           <li><a href="referencias.html" class="hover:underline">Referências</a></li>
           <li><a href="contato.html" class="hover:underline">Contato</a></li>
           <li><a href="sobrenos.html" class="hover:underline">Sobre a nossa Equipe</a></li>
-
         </ul>
       </nav>
+      
+      <!-- Menu Mobile -->
+      <div class="mobile-menu">
+        <button class="mobile-menu-button" id="mobileMenuButton">
+          ☰
+        </button>
+        <nav class="mobile-nav hidden" id="mobileNav">
+          <ul>
+            <li><a href="index.html" class="hover:underline font-semibold">Início</a></li>
+            <li><a href="sobre.html" class="hover:underline">Sobre</a></li>
+            <li><a href="objetivos.html" class="hover:underline">Objetivos</a></li>
+            <li><a href="metodologia.html" class="hover:underline">Metodologia</a></li>
+            <li><a href="resultados.html" class="hover:underline">Resultados</a></li>
+            <li><a href="educacao.html" class="hover:underline">Educação</a></li>
+            <li><a href="referencias.html" class="hover:underline">Referências</a></li>
+            <li><a href="contato.html" class="hover:underline">Contato</a></li>
+            <li><a href="sobrenos.html" class="hover:underline">Sobre a nossa Equipe</a></li>
+          </ul>
+        </nav>
+      </div>
     </div>
   </header>
 
@@ -35,7 +118,7 @@
   <section class="bg-green-100 py-16 text-center">
     <div class="container mx-auto px-4">
       <img src="logo4.jpg" alt="EcoFluxo Hero Logo"
-           class="mx-auto mb-6 rounded-xl shadow-xl hover:scale-105 transition duration-500">
+           class="mx-auto mb-6 rounded-xl shadow-xl hover:scale-105 transition duration-500 max-w-full h-auto">
 
       <h2 class="text-4xl font-extrabold text-green-700 mb-4">
         Transformando resíduos em recursos
@@ -43,7 +126,7 @@
       <p class="text-lg text-gray-700 mb-6">
         Conectando escolas e comunidades para um futuro mais sustentável.
       </p>
-      <div class="flex justify-center space-x-4">
+      <div class="flex justify-center space-x-4 hero-buttons">
         <a href="sobre.html" class="bg-green-600 text-white px-6 py-3 rounded-lg shadow hover:bg-green-800">
           Conheça o projeto
         </a>
@@ -55,7 +138,7 @@
   </section>
 
   <!-- Destaques -->
-  <section class="container mx-auto px-6 py-12 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+  <section class="container mx-auto px-6 py-12 grid md:grid-cols-2 lg:grid-cols-4 gap-6 features-grid">
     <div class="p-6 bg-white shadow rounded-lg">
       <h3 class="text-xl font-bold text-green-700 mb-2">Redução de resíduos</h3>
       <p>Diminuindo o desperdício de resíduos orgânicos nas escolas.</p>
@@ -79,6 +162,22 @@
     <img src="logo1.jpg" alt="Logo EcoFluxo" class="mx-auto h-10 w-auto mb-2 opacity-90 hover:opacity-100 transition">
     <p>&copy; 2025 EcoFluxo. Todos os direitos reservados.</p>
   </footer>
+
+  <script>
+    // Script para alternar o menu móvel
+    document.getElementById('mobileMenuButton').addEventListener('click', function() {
+      const mobileNav = document.getElementById('mobileNav');
+      mobileNav.classList.toggle('hidden');
+    });
+    
+    // Fechar menu ao clicar em um link (opcional)
+    const mobileLinks = document.querySelectorAll('.mobile-nav a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        document.getElementById('mobileNav').classList.add('hidden');
+      });
+    });
+  </script>
 
 </body>
 </html>
