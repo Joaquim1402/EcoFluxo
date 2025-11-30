@@ -6,14 +6,90 @@
   <title>EcoFluxo - Resultados Esperados</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Estilos adicionais para melhorar a responsividade */
+    .mobile-menu {
+      display: none;
+    }
+    
+    @media (max-width: 1024px) {
+      .desktop-nav {
+        display: none;
+      }
+      
+      .mobile-menu {
+        display: block;
+      }
+      
+      .mobile-menu-button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+      
+      .mobile-nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #047857;
+        z-index: 50;
+        padding: 1rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      
+      .mobile-nav ul {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      
+      .mobile-nav li a {
+        display: block;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .results-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .logo-image {
+        max-width: 80%;
+        height: auto;
+      }
+      
+      .impact-image-container {
+        grid-column: 1 / -1;
+        margin-top: 2rem;
+      }
+      
+      .impact-image {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+    
+    @media (max-width: 640px) {
+      .logo-image {
+        max-width: 60%;
+      }
+    }
+  </style>
 </head>
 <body class="bg-green-50 text-gray-800">
 
   <!-- Header / Navbar -->
-  <header class="bg-green-700 text-white p-4 shadow-md">
+  <header class="bg-green-700 text-white p-4 shadow-md relative">
     <div class="container mx-auto flex justify-between items-center">
       <h1 class="text-2xl font-bold">EcoFluxo</h1>
-      <nav>
+      
+      <!-- Menu Desktop -->
+      <nav class="desktop-nav">
         <ul class="flex space-x-6">
           <li><a href="index.html" class="hover:underline">Início</a></li>
           <li><a href="sobre.html" class="hover:underline">Sobre</a></li>
@@ -24,21 +100,41 @@
           <li><a href="referencias.html" class="hover:underline">Referências</a></li>
           <li><a href="contato.html" class="hover:underline">Contato</a></li>
           <li><a href="sobrenos.html" class="hover:underline">Sobre a nossa Equipe</a></li>
-
         </ul>
       </nav>
+      
+      <!-- Menu Mobile -->
+      <div class="mobile-menu">
+        <button class="mobile-menu-button" id="mobileMenuButton">
+          ☰
+        </button>
+        <nav class="mobile-nav hidden" id="mobileNav">
+          <ul>
+            <li><a href="index.html" class="hover:underline">Início</a></li>
+            <li><a href="sobre.html" class="hover:underline">Sobre</a></li>
+            <li><a href="objetivos.html" class="hover:underline">Objetivos</a></li>
+            <li><a href="metodologia.html" class="hover:underline">Metodologia</a></li>
+            <li><a href="resultados.html" class="hover:underline font-semibold">Resultados</a></li>
+            <li><a href="educacao.html" class="hover:underline">Educação</a></li>
+            <li><a href="referencias.html" class="hover:underline">Referências</a></li>
+            <li><a href="contato.html" class="hover:underline">Contato</a></li>
+            <li><a href="sobrenos.html" class="hover:underline">Sobre a nossa Equipe</a></li>
+          </ul>
+        </nav>
+      </div>
     </div>
   </header>
 
   <!-- Resultados Esperados -->
-     <main class="container mx-auto px-6 py-12">
-<div class="text-center mb-8">
-  <img src="logo3.jpg" alt="Logo EcoFluxo" 
-       class="mx-auto h-20 w-auto rounded-lg shadow-lg hover:scale-105 transition duration-300">
-</div>
+  <main class="container mx-auto px-6 py-12">
+    <div class="text-center mb-8">
+      <img src="logo3.jpg" alt="Logo EcoFluxo" 
+           class="mx-auto h-20 w-auto rounded-lg shadow-lg hover:scale-105 transition duration-300 logo-image">
+    </div>
+    
     <h2 class="text-3xl font-extrabold text-green-700 mb-8 text-center">Resultados Esperados</h2>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 results-grid">
       <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
         <h3 class="text-xl font-bold text-green-700 mb-2">🌍 Redução de resíduos</h3>
         <p>Diminuição significativa do envio de resíduos orgânicos para aterros sanitários.</p>
@@ -63,13 +159,12 @@
         <h3 class="text-xl font-bold text-green-700 mb-2">🏅 Certificação</h3>
         <p>Incentivo à certificação de escolas como instituições sustentáveis.</p>
       </div>
-    </div>
 
- <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">   
-        <h3 class="text-xl font-bold text-green-700 mb-2"></h3>
-          <img src="impactos.png" alt="Resultados sustentáveis" class="rounded-lg mx-auto shadow">
-      
+      <!-- Container da imagem de impactos - mesmo estilo do mapa interativo -->
+      <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition impact-image-container">
+        <img src="impactos.png" alt="Resultados sustentáveis" class="rounded-lg mx-auto shadow impact-image">
+        <p class="text-sm text-gray-600 mt-2 text-center">Impactos positivos do projeto EcoFluxo</p>
+      </div>
     </div>
   </main>
 
@@ -78,6 +173,21 @@
     <p>&copy; 2025 EcoFluxo. Todos os direitos reservados.</p>
   </footer>
 
+  <script>
+    // Script para alternar o menu móvel
+    document.getElementById('mobileMenuButton').addEventListener('click', function() {
+      const mobileNav = document.getElementById('mobileNav');
+      mobileNav.classList.toggle('hidden');
+    });
+    
+    // Fechar menu ao clicar em um link (opcional)
+    const mobileLinks = document.querySelectorAll('.mobile-nav a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        document.getElementById('mobileNav').classList.add('hidden');
+      });
+    });
+  </script>
+
 </body>
 </html>
-
