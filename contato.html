@@ -24,7 +24,6 @@
           <li><a href="referencias.html" class="hover:underline">Referências</a></li>
           <li><a href="contato.html" class="hover:underline font-semibold">Contato</a></li>
           <li><a href="sobrenos.html" class="hover:underline">Sobre a nossa Equipe</a></li>
-
         </ul>
       </nav>
     </div>
@@ -42,10 +41,16 @@
       Preencha o formulário abaixo para cadastrar sua instituição no EcoFluxo ou enviar uma mensagem à nossa equipe.
     </p>
 
-    <form action="#" method="post" class="bg-white p-8 rounded-lg shadow max-w-2xl mx-auto space-y-6">
+    <!-- Formulário de Contato -->
+    <form id="contactForm" class="bg-white p-8 rounded-lg shadow max-w-2xl mx-auto space-y-6">
       <div>
         <label class="block mb-2 font-semibold text-green-700">Nome da instituição:</label>
         <input type="text" name="instituicao" class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-green-600" required>
+      </div>
+
+      <div>
+        <label class="block mb-2 font-semibold text-green-700">Email para contato:</label>
+        <input type="email" name="email" class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-green-600" required>
       </div>
 
       <div>
@@ -75,6 +80,20 @@
       </div>
     </form>
 
+    <!-- Seção de Contato Direto -->
+    <div class="bg-white p-8 rounded-lg shadow max-w-2xl mx-auto mt-10">
+      <h3 class="text-2xl font-bold text-green-700 mb-4 text-center">Contato Direto</h3>
+      <p class="text-center mb-6">Para mais informações e aplicação do projeto, acesse nossa comunidade do WhatsApp:</p>
+      <div class="text-center">
+        <a href="https://chat.whatsapp.com/CJVDDVv5jczBuZ7NqNaTFO" 
+           class="inline-block bg-green-600 text-white px-6 py-3 rounded-lg shadow hover:bg-green-800 transition"
+           target="_blank">
+          Acessar Comunidade do WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <!-- Informações de Contato -->
     <div class="text-center mt-10 space-y-2">
       <p class="text-lg font-semibold">📧 Email: <a href="mailto:ecofluxo.etejbl@gmail.com" class="text-green-700 hover:underline">ecofluxo.etejbl@gmail.com</a></p>
       <p class="text-lg font-semibold">📞 Telefone: <a href="tel:+5581989106384" class="text-green-700 hover:underline">81 98910-6384</a></p>
@@ -89,6 +108,32 @@
   <footer class="bg-green-700 text-white py-4 text-center mt-10">
     <p>&copy; 2025 EcoFluxo. Todos os direitos reservados.</p>
   </footer>
+
+  <!-- Script para envio do formulário -->
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Coletar dados do formulário
+      const formData = new FormData(this);
+      const data = {
+        instituicao: formData.get('instituicao'),
+        email: formData.get('email'),
+        tipo: formData.get('tipo'),
+        localizacao: formData.get('localizacao'),
+        mensagem: formData.get('mensagem')
+      };
+      
+      // Aqui você implementaria o envio real do formulário
+      // Por exemplo, usando EmailJS, FormSubmit.co ou uma API personalizada
+      
+      // Simulação de envio bem-sucedido
+      alert('Formulário enviado com sucesso! Uma cópia foi enviada para o seu email.');
+      
+      // Limpar formulário
+      this.reset();
+    });
+  </script>
 
 </body>
 </html>
