@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EcoFluxo - Contato</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <link rel="stylesheet" href="styles.css">
   <style>
     /* Estilos adicionais para melhorar a responsividade */
@@ -88,6 +89,32 @@
         font-size: 0.95rem;
       }
     }
+
+    /* Estilos para feedback do formulário */
+    .loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .success-message {
+      background-color: #d1fae5;
+      border: 1px solid #10b981;
+      color: #065f46;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .error-message {
+      background-color: #fee2e2;
+      border: 1px solid #ef4444;
+      color: #dc2626;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
   </style>
 </head>
 <body class="bg-green-50 text-gray-800">
@@ -147,6 +174,9 @@
       Preencha o formulário abaixo para cadastrar sua instituição no EcoFluxo ou enviar uma mensagem à nossa equipe.
     </p>
 
+    <!-- Área para mensagens de feedback -->
+    <div id="formFeedback"></div>
+
     <!-- Formulário de Contato -->
     <form id="contactForm" class="bg-white p-8 rounded-lg shadow max-w-2xl mx-auto space-y-6 contact-form">
       <div>
@@ -180,7 +210,7 @@
       </div>
 
       <div class="text-center">
-        <button type="submit" class="bg-green-600 text-white px-6 py-3 rounded-lg shadow hover:bg-green-800 transition">
+        <button type="submit" id="submitButton" class="bg-green-600 text-white px-6 py-3 rounded-lg shadow hover:bg-green-800 transition">
           Enviar
         </button>
       </div>
@@ -214,29 +244,148 @@
     <p>&copy; 2025 EcoFluxo. Todos os direitos reservados.</p>
   </footer>
 
-  <!-- Script para envio do formulário -->
+  <!-- Script para envio do formulário e funcionalidades -->
   <script>
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
+    // Inicializar EmailJS
+    (function() {
+      // Substitua estas credenciais pelas suas do EmailJS
+      emailjs.init("seu_user_id_publico"); // Seu Public Key do EmailJS
+    })();
+
+    // Função para mostrar mensagens de feedback
+    function showMessage(message, type) {
+      const feedbackDiv = document.getElementById('formFeedback');
+      feedbackDiv.innerHTML = `
+        <div class="${type === 'success' ? 'success-message' : 'error-message'}">
+          ${message}
+        </div>
+      `;
+      
+      // Remover a mensagem após 5 segundos
+      setTimeout(() => {
+        feedbackDiv.innerHTML = '';
+      }, 5000);
+    }
+
+    // Função para enviar email usando EmailJS
+    async function sendEmail(formData) {
+      try {
+        // Configurações do EmailJS
+        const serviceID = 'seu_service_id'; // ID do seu serviço no EmailJS
+        const templateID = 'seu_template_id'; // ID do seu template no EmailJS
+        
+        // Enviar email para a EcoFluxo
+        const ecoFluxoResponse = await emailjs.send(serviceID, templateID, {
+          from_name: formData.instituicao,
+          from_email: formData.email,
+          tipo_instituicao: formData.tipo,
+          localizacao: formData.localizacao,
+          message: formData.mensagem,
+          to_email: 'ecofluxo.etejbl@gmail.com',
+          subject: `Nova mensagem de ${formData.instituicao} - EcoFluxo`
+        });
+
+        // Enviar email de confirmação para o usuário
+        const userTemplateID = 'template_confirmação_usuario'; // Template para confirmação
+        const userResponse = await emailjs.send(serviceID, userTemplateID, {
+          to_name: formData.instituicao,
+          to_email: formData.email,
+          message: `Olá! Recebemos sua mensagem sobre o EcoFluxo. Em breve entraremos em contato. Sua mensagem: "${formData.mensagem}"`
+        });
+
+        return { success: true, ecoFluxoResponse, userResponse };
+      } catch (error) {
+        console.error('Erro ao enviar email:', error);
+        return { success: false, error };
+      }
+    }
+
+    // Função para validar o formulário
+    function validateForm(formData) {
+      const errors = [];
+
+      if (!formData.instituicao.trim()) {
+        errors.push('Nome da instituição é obrigatório');
+      }
+
+      if (!formData.email.trim()) {
+        errors.push('Email é obrigatório');
+      } else if (!isValidEmail(formData.email)) {
+        errors.push('Email inválido');
+      }
+
+      if (!formData.localizacao.trim()) {
+        errors.push('Localização é obrigatória');
+      }
+
+      return errors;
+    }
+
+    // Função para validar email
+    function isValidEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+
+    // Função para preparar dados do formulário
+    function getFormData(form) {
+      return {
+        instituicao: form.instituicao.value,
+        email: form.email.value,
+        tipo: form.tipo.value,
+        localizacao: form.localizacao.value,
+        mensagem: form.mensagem.value
+      };
+    }
+
+    // Função para atualizar estado do botão
+    function setButtonState(loading) {
+      const button = document.getElementById('submitButton');
+      const form = document.getElementById('contactForm');
+      
+      if (loading) {
+        button.innerHTML = 'Enviando...';
+        button.disabled = true;
+        form.classList.add('loading');
+      } else {
+        button.innerHTML = 'Enviar';
+        button.disabled = false;
+        form.classList.remove('loading');
+      }
+    }
+
+    // Event listener para o formulário
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       
-      // Coletar dados do formulário
-      const formData = new FormData(this);
-      const data = {
-        instituicao: formData.get('instituicao'),
-        email: formData.get('email'),
-        tipo: formData.get('tipo'),
-        localizacao: formData.get('localizacao'),
-        mensagem: formData.get('mensagem')
-      };
+      const formData = getFormData(this);
       
-      // Aqui você implementaria o envio real do formulário
-      // Por exemplo, usando EmailJS, FormSubmit.co ou uma API personalizada
-      
-      // Simulação de envio bem-sucedido
-      alert('Formulário enviado com sucesso! Uma cópia foi enviada para o seu email.');
-      
-      // Limpar formulário
-      this.reset();
+      // Validar formulário
+      const errors = validateForm(formData);
+      if (errors.length > 0) {
+        showMessage(errors.join('<br>'), 'error');
+        return;
+      }
+
+      // Mostrar estado de carregamento
+      setButtonState(true);
+
+      try {
+        // Enviar email
+        const result = await sendEmail(formData);
+        
+        if (result.success) {
+          showMessage('Formulário enviado com sucesso! Enviamos uma confirmação para seu email.', 'success');
+          this.reset();
+        } else {
+          throw result.error;
+        }
+      } catch (error) {
+        console.error('Erro no envio:', error);
+        showMessage('Erro ao enviar formulário. Tente novamente ou entre em contato diretamente.', 'error');
+      } finally {
+        setButtonState(false);
+      }
     });
 
     // Script para alternar o menu móvel
@@ -252,6 +401,34 @@
         document.getElementById('mobileNav').classList.add('hidden');
       });
     });
+
+    // Função alternativa usando FormSubmit.co (caso prefira esta opção)
+    function setupFormSubmit() {
+      // Se preferir usar FormSubmit.co, descomente as linhas abaixo
+      // e comente a função sendEmail acima
+      /*
+      document.getElementById('contactForm').action = 'https://formsubmit.co/ecofluxo.etejbl@gmail.com';
+      document.getElementById('contactForm').method = 'POST';
+      
+      // Adicionar campos hidden para configurar o FormSubmit
+      const hiddenFields = [
+        { name: '_subject', value: 'Nova mensagem do site EcoFluxo' },
+        { name: '_captcha', value: 'false' },
+        { name: '_template', value: 'table' }
+      ];
+      
+      hiddenFields.forEach(field => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = field.name;
+        input.value = field.value;
+        document.getElementById('contactForm').appendChild(input);
+      });
+      */
+    }
+
+    // Inicializar FormSubmit (opcional)
+    // setupFormSubmit();
   </script>
 
 </body>
