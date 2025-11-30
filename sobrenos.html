@@ -6,15 +6,106 @@
   <title>EcoFluxo - Sobre Nós</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Estilos adicionais para melhorar a responsividade */
+    .mobile-menu {
+      display: none;
+    }
+    
+    @media (max-width: 1024px) {
+      .desktop-nav {
+        display: none;
+      }
+      
+      .mobile-menu {
+        display: block;
+      }
+      
+      .mobile-menu-button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+      
+      .mobile-nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #047857;
+        z-index: 50;
+        padding: 1rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      
+      .mobile-nav ul {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      
+      .mobile-nav li a {
+        display: block;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .mission-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .history-section {
+        flex-direction: column;
+      }
+      
+      .history-image,
+      .history-content {
+        width: 100%;
+      }
+      
+      .cta-buttons {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .cta-buttons a {
+        width: 100%;
+        text-align: center;
+      }
+    }
+    
+    @media (max-width: 640px) {
+      .hero-section {
+        padding: 2rem 1rem;
+      }
+      
+      .content-section {
+        padding: 1.5rem;
+      }
+      
+      .team-member {
+        padding: 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body class="bg-green-50 text-gray-800">
 
   <!-- Header / Navbar -->
-   <header class="bg-green-700 text-white p-4 shadow-md">
+  <header class="bg-green-700 text-white p-4 shadow-md relative">
     <div class="container mx-auto flex justify-between items-center">
       <h1 class="text-2xl font-bold">EcoFluxo</h1>
-      </a>
-      <nav>
+      
+      <!-- Menu Desktop -->
+      <nav class="desktop-nav">
         <ul class="flex space-x-6">
           <li><a href="index.html" class="hover:underline">Início</a></li>
           <li><a href="sobre.html" class="hover:underline font-semibold">Sobre</a></li>
@@ -27,11 +118,31 @@
           <li><a href="sobrenos.html" class="hover:underline">Sobre a nossa Equipe</a></li>
         </ul>
       </nav>
+      
+      <!-- Menu Mobile -->
+      <div class="mobile-menu">
+        <button class="mobile-menu-button" id="mobileMenuButton">
+          ☰
+        </button>
+        <nav class="mobile-nav hidden" id="mobileNav">
+          <ul>
+            <li><a href="index.html" class="hover:underline">Início</a></li>
+            <li><a href="sobre.html" class="hover:underline font-semibold">Sobre</a></li>
+            <li><a href="objetivos.html" class="hover:underline">Objetivos</a></li>
+            <li><a href="metodologia.html" class="hover:underline">Metodologia</a></li>
+            <li><a href="resultados.html" class="hover:underline">Resultados</a></li>
+            <li><a href="educacao.html" class="hover:underline">Educação</a></li>
+            <li><a href="referencias.html" class="hover:underline">Referências</a></li>
+            <li><a href="contato.html" class="hover:underline">Contato</a></li>
+            <li><a href="sobrenos.html" class="hover:underline">Sobre a nossa Equipe</a></li>
+          </ul>
+        </nav>
+      </div>
     </div>
   </header>
 
   <!-- Hero Section -->
-  <section class="bg-green-100 py-16 text-center">
+  <section class="bg-green-100 py-16 text-center hero-section">
     <div class="container mx-auto px-4">
       <h1 class="text-4xl font-extrabold text-green-700 mb-4">
         Sobre a EcoFluxo
@@ -45,8 +156,8 @@
   <!-- Conteúdo Principal -->
   <main class="container mx-auto px-6 py-12">
     <!-- Missão, Visão e Valores -->
-    <section class="grid md:grid-cols-3 gap-8 mb-16">
-      <div class="bg-white p-8 rounded-lg shadow-md text-center">
+    <section class="grid md:grid-cols-3 gap-8 mb-16 mission-grid">
+      <div class="bg-white p-8 rounded-lg shadow-md text-center content-section">
         <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -58,7 +169,7 @@
         </p>
       </div>
       
-      <div class="bg-white p-8 rounded-lg shadow-md text-center">
+      <div class="bg-white p-8 rounded-lg shadow-md text-center content-section">
         <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -71,7 +182,7 @@
         </p>
       </div>
       
-      <div class="bg-white p-8 rounded-lg shadow-md text-center">
+      <div class="bg-white p-8 rounded-lg shadow-md text-center content-section">
         <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -89,13 +200,13 @@
     </section>
 
     <!-- História -->
-    <section class="bg-white rounded-lg shadow-md p-8 mb-16">
+    <section class="bg-white rounded-lg shadow-md p-8 mb-16 content-section">
       <h2 class="text-3xl font-bold text-green-700 mb-6 text-center">Nossa História</h2>
-      <div class="flex flex-col md:flex-row items-center gap-8">
-        <div class="md:w-1/2">
+      <div class="flex flex-col md:flex-row items-center gap-8 history-section">
+        <div class="md:w-1/2 history-image">
           <img src="logo4.jpg" alt="História da EcoFluxo" class="rounded-lg shadow-md w-full">
         </div>
-        <div class="md:w-1/2">
+        <div class="md:w-1/2 history-content">
           <p class="text-gray-700 mb-4">
             A EcoFluxo nasceu em 2025 a partir da observação de um problema comum em muitas escolas: o desperdício de resíduos orgânicos que poderiam ser transformados em recursos valiosos.
           </p>
@@ -108,11 +219,12 @@
         </div>
       </div>
     </section>
- <!-- Equipe -->
+
+    <!-- Equipe -->
     <section class="mb-16">
       <h2 class="text-3xl font-bold text-green-700 mb-8 text-center">Nossa Equipe</h2>
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="bg-white rounded-lg shadow-md p-6 text-center">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 team-grid">
+        <div class="bg-white rounded-lg shadow-md p-6 text-center team-member">
           <div class="w-24 h-24 bg-green-200 rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden">
             <img src="joaquim.jpg" alt="Joaquim" class="w-full h-full object-cover">
           </div>
@@ -121,7 +233,7 @@
           <p class="text-gray-700 text-sm">Responsável pelo desenvolvimento da plataforma digital e soluções tecnológicas da EcoFluxo.</p>
         </div>
         
-        <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <div class="bg-white rounded-lg shadow-md p-6 text-center team-member">
           <div class="w-24 h-24 bg-green-200 rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden">
             <img src="gilvan.jpg" alt="Gilvan" class="w-full h-full object-cover">
           </div>
@@ -130,7 +242,7 @@
           <p class="text-gray-700 text-sm">Coordena as atividades educacionais e pedagógicas, integrando a sustentabilidade ao currículo escolar.</p>
         </div>
         
-        <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <div class="bg-white rounded-lg shadow-md p-6 text-center team-member">
           <div class="w-24 h-24 bg-green-200 rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden">
             <img src="vinicius.png" alt="Vinícius" class="w-full h-full object-cover">
           </div>
@@ -139,7 +251,7 @@
           <p class="text-gray-700 text-sm">Gerencia a implementação das soluções da EcoFluxo nas escolas e comunidades parceiras.</p>
         </div>
         
-        <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <div class="bg-white rounded-lg shadow-md p-6 text-center team-member">
           <div class="w-24 h-24 bg-green-200 rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden">
             <img src="anna.jpg" alt="Anna" class="w-full h-full object-cover">
           </div>
@@ -151,12 +263,12 @@
     </section>
 
     <!-- Chamada para Ação -->
-    <section class="bg-green-700 text-white rounded-lg p-8 text-center">
+    <section class="bg-green-700 text-white rounded-lg p-8 text-center content-section">
       <h2 class="text-3xl font-bold mb-4">Junte-se à Nossa Causa</h2>
       <p class="text-lg mb-6 max-w-2xl mx-auto">
         Faça parte dessa rede de transformação e contribua para um futuro mais sustentável.
       </p>
-      <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <div class="flex flex-col sm:flex-row justify-center gap-4 cta-buttons">
         <a href="contato.html" class="bg-white text-green-700 px-6 py-3 rounded-lg shadow hover:bg-green-100 font-semibold">
           Cadastre sua instituição
         </a>
@@ -172,6 +284,22 @@
     <img src="logo1.jpg" alt="Logo EcoFluxo" class="mx-auto h-10 w-auto mb-2 opacity-90 hover:opacity-100 transition">
     <p>&copy; 2025 EcoFluxo. Todos os direitos reservados.</p>
   </footer>
+
+  <script>
+    // Script para alternar o menu móvel
+    document.getElementById('mobileMenuButton').addEventListener('click', function() {
+      const mobileNav = document.getElementById('mobileNav');
+      mobileNav.classList.toggle('hidden');
+    });
+    
+    // Fechar menu ao clicar em um link (opcional)
+    const mobileLinks = document.querySelectorAll('.mobile-nav a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        document.getElementById('mobileNav').classList.add('hidden');
+      });
+    });
+  </script>
 
 </body>
 </html>
